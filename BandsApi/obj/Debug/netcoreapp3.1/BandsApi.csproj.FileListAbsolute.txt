@@ -1,0 +1,15 @@
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\BandsApi.exe
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.csprojAssemblyReference.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\staticwebassets\BandsApi.StaticWebAssets.Manifest.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\staticwebassets\BandsApi.StaticWebAssets.xml
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.AssemblyInfoInputs.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.AssemblyInfo.cs
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.RazorTargetAssemblyInfo.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.csproj.CopyComplete
