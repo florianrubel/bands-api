@@ -1,6 +1,5 @@
 ﻿using BandsApi.Entities;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.Extensions;
 using System;
 
 namespace BandsApi.DbContexts
