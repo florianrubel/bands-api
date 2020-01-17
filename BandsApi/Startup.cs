@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using BandsApi.DbContexts;
 using BandsApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Storage;
-using Newtonsoft.Json;
+using System;
 
 namespace BandsApi
 {
@@ -31,6 +26,7 @@ namespace BandsApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // db setup
             var connectionString = Configuration.GetConnectionString("Mysql8Server");
             services.AddDbContext<BandAlbumContext>(options =>
             {
@@ -39,7 +35,17 @@ namespace BandsApi
                         .CharSetBehavior(CharSetBehavior.AppendToAllColumns)
                         .CharSet(CharSet.Utf8Mb4));
             });
-            services.AddControllers();
+
+            // controller config
+            services.AddControllers(setupAction =>
+            {
+                setupAction.ReturnHttpNotAcceptable = true;
+            }).AddXmlDataContractSerializerFormatters();
+
+            // entity dto mapping
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // register repositories
             services.AddScoped<IBandAlbumRepository, BandAlbumRepository>();
         }
 
@@ -49,6 +55,17 @@ namespace BandsApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async c =>
+                    {
+                        c.Response.StatusCode = 500;
+                        await c.Response.WriteAsync("Something went horribly wrong, try again later");
+                    });
+                });
             }
 
             app.UseHttpsRedirection();

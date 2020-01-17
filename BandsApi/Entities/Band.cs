@@ -21,7 +21,6 @@ namespace BandsApi.Entities
         [MaxLength(50)]
         public string MainGenre { get; set; }
 
-
         public ICollection<Album> Albums { get; set; } = new List<Album>();
 
     }
