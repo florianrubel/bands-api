@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BandsApi.Entities;
+using BandsApi.Helpers;
 using BandsApi.Models;
 using BandsApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -24,22 +26,41 @@ namespace BandsApi.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<BandDto>> GetBands()
+        public ActionResult<IEnumerable<BandDto>> GetBands([FromQuery]BandsResourceParameters parameters)
         {
-            var bands = _bandAlbumRepository.GetBands();
+            IEnumerable<Band> bands = _bandAlbumRepository.GetBands(parameters);
 
             return Ok(_mapper.Map<IEnumerable<BandDto>>(bands));
         }
 
-        [HttpGet("{bandId}")]
+        [HttpGet("{bandId}", Name = "GetBand")]
         public IActionResult GetBand(Guid bandId)
         {
-            var band = _bandAlbumRepository.GetBand(bandId);
+            Band band = _bandAlbumRepository.GetBand(bandId);
             if (band == null)
             {
                 return NotFound();
             }
             return Ok(_mapper.Map<BandDto>(band));
+        }
+
+        [HttpPost]
+        public ActionResult<BandDto> CreateBand([FromBody] BandForCreatingDto band)
+        {
+            Band bandEntity = _mapper.Map<Band>(band);
+            _bandAlbumRepository.AddBand(bandEntity);
+            _bandAlbumRepository.Save();
+
+            BandDto bandToReturn = _mapper.Map<BandDto>(bandEntity);
+
+            return CreatedAtRoute("GetBand", new { bandId = bandToReturn.Id }, bandToReturn);
+        }
+
+        [HttpOptions]
+        public IActionResult GetBandsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,POST,DELETE,HEAD,OPTIONS");
+            return Ok();
         }
     }
 }

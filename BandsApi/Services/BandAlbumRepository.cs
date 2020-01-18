@@ -1,5 +1,6 @@
 ﻿using BandsApi.DbContexts;
 using BandsApi.Entities;
+using BandsApi.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +96,33 @@ namespace BandsApi.Services
         public IEnumerable<Band> GetBands()
         {
             return _context.Bands.ToList();
+        }
+
+        public IEnumerable<Band> GetBands(BandsResourceParameters parameters)
+        {
+            if (parameters == null)
+                throw new ArgumentNullException(nameof(parameters));
+
+            if (string.IsNullOrWhiteSpace(parameters.MainGenre) && string.IsNullOrWhiteSpace(parameters.SearchQuery))
+            {
+                return GetBands();
+            }
+
+            IQueryable<Band> collection = _context.Bands as IQueryable<Band>;
+
+            if (!string.IsNullOrWhiteSpace(parameters.MainGenre))
+            {
+                string mainGenre = parameters.MainGenre.Trim();
+                collection = collection.Where(b => b.MainGenre == mainGenre);
+            }
+
+            if (!string.IsNullOrWhiteSpace(parameters.SearchQuery))
+            {
+                string searchQuery = parameters.SearchQuery.Trim();
+                collection = collection.Where(b => b.Name.ToLower().Contains(searchQuery));
+            }
+
+            return collection;
         }
 
         public IEnumerable<Band> GetBands(IEnumerable<Guid> bandIds)

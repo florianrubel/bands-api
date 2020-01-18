@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BandsApi.Entities;
 using BandsApi.Models;
 using BandsApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,11 @@ namespace BandsApi.Controllers
             {
                 return NotFound();
             }
-            var albums = _bandAlbumRepository.GetAlbums(bandId);
+            IEnumerable<Entities.Album> albums = _bandAlbumRepository.GetAlbums(bandId);
             return Ok(_mapper.Map<IEnumerable<AlbumDto>>(albums));
         }
 
-        [HttpGet("{albumId}")]
+        [HttpGet("{albumId}", Name = "GetAlbumForBand")]
         public ActionResult<AlbumDto> GetAlbumForBand(Guid bandId, Guid albumId)
         {
             if (!_bandAlbumRepository.BandExists(bandId))
@@ -41,7 +42,7 @@ namespace BandsApi.Controllers
                 return NotFound();
             }
 
-            var album = _bandAlbumRepository.GetAlbum(bandId, albumId);
+            Entities.Album album = _bandAlbumRepository.GetAlbum(bandId, albumId);
 
             if (album == null)
             {
@@ -50,9 +51,22 @@ namespace BandsApi.Controllers
 
             return Ok(_mapper.Map<AlbumDto>(album));
         }
-    }
 
-    public class Giud
-    {
+        [HttpPost]
+        public ActionResult<AlbumDto> CreateAlbumForBand(Guid bandId, [FromBody] AlbumForCreatingDto album)
+        {
+            if (!_bandAlbumRepository.BandExists(bandId))
+            {
+                return NotFound();
+            }
+
+            Album albumEntity = _mapper.Map<Album>(album);
+            _bandAlbumRepository.AddAlbum(bandId, albumEntity);
+            _bandAlbumRepository.Save();
+
+            AlbumDto albumToReturn = _mapper.Map<AlbumDto>(albumEntity);
+
+            return CreatedAtRoute("GetAlbumForBand", new { bandId = bandId, albumId = albumToReturn.Id }, albumToReturn);
+        }
     }
 }
