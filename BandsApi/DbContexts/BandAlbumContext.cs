@@ -1,6 +1,7 @@
 ﻿using BandsApi.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace BandsApi.DbContexts
 {
@@ -91,6 +92,11 @@ namespace BandsApi.DbContexts
                     BandId = Guid.Parse("cab51058-0996-4221-ba63-b841004e89dd")
                 }
             );
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
             base.OnModelCreating(modelBuilder);
         }

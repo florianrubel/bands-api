@@ -3,14 +3,16 @@ using System;
 using BandsApi.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BandsApi.Migrations
 {
     [DbContext(typeof(BandAlbumContext))]
-    partial class BandAlbumContextModelSnapshot : ModelSnapshot
+    [Migration("20200119204757_DisableCascadeDelete")]
+    partial class DisableCascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

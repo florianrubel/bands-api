@@ -157,3 +157,6 @@ C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\tr\Microso
 C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
