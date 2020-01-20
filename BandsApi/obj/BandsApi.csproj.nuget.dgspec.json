@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\flori\\source\\repos\\BandsApi\\BandsApi\\BandsApi.csproj": {}
+    "/home/florianrubel/Projects/private/bands-api/BandsApi/BandsApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\flori\\source\\repos\\BandsApi\\BandsApi\\BandsApi.csproj": {
+    "/home/florianrubel/Projects/private/bands-api/BandsApi/BandsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\flori\\source\\repos\\BandsApi\\BandsApi\\BandsApi.csproj",
+        "projectUniqueName": "/home/florianrubel/Projects/private/bands-api/BandsApi/BandsApi.csproj",
         "projectName": "BandsApi",
-        "projectPath": "C:\\Users\\flori\\source\\repos\\BandsApi\\BandsApi\\BandsApi.csproj",
-        "packagesPath": "C:\\Users\\flori\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\flori\\source\\repos\\BandsApi\\BandsApi\\obj\\",
+        "projectPath": "/home/florianrubel/Projects/private/bands-api/BandsApi/BandsApi.csproj",
+        "packagesPath": "/home/florianrubel/.nuget/packages/",
+        "outputPath": "/home/florianrubel/Projects/private/bands-api/BandsApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\flori\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/florianrubel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -89,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
         }
       }
     }
