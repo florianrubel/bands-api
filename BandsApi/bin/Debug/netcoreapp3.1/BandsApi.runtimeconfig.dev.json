@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/florianrubel/.dotnet/store/|arch|/|tfm|",
-      "/home/florianrubel/.nuget/packages"
+      "C:\\Users\\flori\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\flori\\.nuget\\packages"
     ]
   }
 }

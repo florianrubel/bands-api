@@ -17,21 +17,21 @@ namespace BandsApi.Helpers
                 return Task.CompletedTask;
             }
 
-            var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).ToString();
+            string value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).ToString();
 
-            if(string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
             }
 
-            var elementType = bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
-            var converter = TypeDescriptor.GetConverter(elementType);
+            Type elementType = bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
+            TypeConverter converter = TypeDescriptor.GetConverter(elementType);
 
-            var values = value.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries)
+            object[] values = value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => converter.ConvertFromString(x.Trim())).ToArray();
 
-            var typeValues = Array.CreateInstance(elementType, values.Length);
+            Array typeValues = Array.CreateInstance(elementType, values.Length);
 
             values.CopyTo(typeValues, 0);
             bindingContext.Model = typeValues;

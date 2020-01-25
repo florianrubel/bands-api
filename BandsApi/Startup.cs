@@ -28,7 +28,7 @@ namespace BandsApi
         public void ConfigureServices(IServiceCollection services)
         {
             // db setup
-            var connectionString = Configuration.GetConnectionString("Mysql8Server");
+            string connectionString = Configuration.GetConnectionString("Mysql8Server");
             services.AddDbContext<BandAlbumContext>(options =>
             {
                 options
@@ -42,7 +42,8 @@ namespace BandsApi
             {
                 setupAction.ReturnHttpNotAcceptable = true;
             })
-                .AddNewtonsoftJson(setupAction => {
+                .AddNewtonsoftJson(setupAction =>
+                {
                     setupAction.SerializerSettings.ContractResolver =
                     new CamelCasePropertyNamesContractResolver();
                 })
@@ -54,6 +55,8 @@ namespace BandsApi
 
             // register repositories
             services.AddScoped<IBandAlbumRepository, BandAlbumRepository>();
+
+            services.AddScoped<IPropertyMappingService, PropertyMappingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

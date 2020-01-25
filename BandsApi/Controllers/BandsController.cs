@@ -6,6 +6,7 @@ using BandsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace BandsApi.Controllers
 {
@@ -15,20 +16,41 @@ namespace BandsApi.Controllers
     {
         private readonly IBandAlbumRepository _bandAlbumRepository;
         private readonly IMapper _mapper;
+        private readonly IPropertyMappingService _propertyMappingService;
 
-        public BandsController(IBandAlbumRepository bandAlbumRepository, IMapper mapper)
+        public BandsController(IBandAlbumRepository bandAlbumRepository, IMapper mapper, IPropertyMappingService propertyMappingService)
         {
             _bandAlbumRepository = bandAlbumRepository ??
                 throw new ArgumentNullException(nameof(bandAlbumRepository));
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
+            _propertyMappingService = propertyMappingService ??
+                throw new ArgumentNullException(nameof(propertyMappingService));
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetBands")]
         [HttpHead]
         public ActionResult<IEnumerable<BandDto>> GetBands([FromQuery]BandsResourceParameters parameters)
         {
-            IEnumerable<Band> bands = _bandAlbumRepository.GetBands(parameters);
+            if (!_propertyMappingService.ValidMappingExists<BandDto, Band>(parameters.OrderBy))
+                return BadRequest();
+
+            PagedList<Band> bands = _bandAlbumRepository.GetBands(parameters);
+
+            string previousPageLink = bands.HasPrevious ? CreateBandsUri(parameters, UriType.PreviousPage) : null;
+            string nextPageLink = bands.hasNext ? CreateBandsUri(parameters, UriType.NextPage) : null;
+
+            var metaData = new
+            {
+                totalCount = bands.TotalCount,
+                pageSize = bands.PageSize,
+                currentPage = bands.CurrentPage,
+                totalPages = bands.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("Pagination", JsonSerializer.Serialize(metaData));
 
             return Ok(_mapper.Map<IEnumerable<BandDto>>(bands));
         }
@@ -77,6 +99,40 @@ namespace BandsApi.Controllers
             _bandAlbumRepository.Save();
 
             return NoContent();
+        }
+
+        private string CreateBandsUri(BandsResourceParameters parameters, UriType uriType)
+        {
+            switch (uriType)
+            {
+                case UriType.PreviousPage:
+                    return Url.Link("GetBands", new
+                    {
+                        orderBy = parameters.OrderBy,
+                        pageNumber = parameters.PageNumber - 1,
+                        pageSize = parameters.PageSize,
+                        mainGenre = parameters.MainGenre,
+                        searchQuery = parameters.SearchQuery
+                    });
+                case UriType.NextPage:
+                    return Url.Link("GetBands", new
+                    {
+                        orderBy = parameters.OrderBy,
+                        pageNumber = parameters.PageNumber + 1,
+                        pageSize = parameters.PageSize,
+                        mainGenre = parameters.MainGenre,
+                        searchQuery = parameters.SearchQuery
+                    });
+                default:
+                    return Url.Link("GetBands", new
+                    {
+                        orderBy = parameters.OrderBy,
+                        pageNumber = parameters.PageNumber,
+                        pageSize = parameters.PageSize,
+                        mainGenre = parameters.MainGenre,
+                        searchQuery = parameters.SearchQuery
+                    });
+            }
         }
     }
 }

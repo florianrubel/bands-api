@@ -1,6 +1,7 @@
 ﻿using BandsApi.DbContexts;
 using BandsApi.Entities;
 using BandsApi.Helpers;
+using BandsApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace BandsApi.Services
     public class BandAlbumRepository : IBandAlbumRepository
     {
         private readonly BandAlbumContext _context;
+        private readonly IPropertyMappingService _propertyMappingService;
 
-        public BandAlbumRepository(BandAlbumContext context)
+        public BandAlbumRepository(BandAlbumContext context, IPropertyMappingService propertyMappingService)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _propertyMappingService = propertyMappingService;
         }
 
         public void AddAlbum(Guid bandId, Album album)
@@ -98,15 +101,10 @@ namespace BandsApi.Services
             return _context.Bands.ToList();
         }
 
-        public IEnumerable<Band> GetBands(BandsResourceParameters parameters)
+        public PagedList<Band> GetBands(BandsResourceParameters parameters)
         {
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
-
-            if (string.IsNullOrWhiteSpace(parameters.MainGenre) && string.IsNullOrWhiteSpace(parameters.SearchQuery))
-            {
-                return GetBands();
-            }
 
             IQueryable<Band> collection = _context.Bands as IQueryable<Band>;
 
@@ -122,7 +120,14 @@ namespace BandsApi.Services
                 collection = collection.Where(b => b.Name.ToLower().Contains(searchQuery));
             }
 
-            return collection;
+
+            if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
+            {
+                Dictionary<string, PropertyMappingValue> bandPropertyMappingDictionary = _propertyMappingService.GetPropertyMapping<BandDto, Band>();
+                collection = collection.ApplySort(parameters.OrderBy, bandPropertyMappingDictionary);
+            }
+
+            return PagedList<Band>.Create(collection, parameters.PageNumber, parameters.PageSize);
         }
 
         public IEnumerable<Band> GetBands(IEnumerable<Guid> bandIds)

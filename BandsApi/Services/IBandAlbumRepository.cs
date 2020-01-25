@@ -14,7 +14,7 @@ namespace BandsApi.Services
         void DeleteAlbum(Album album);
 
         IEnumerable<Band> GetBands();
-        IEnumerable<Band> GetBands(BandsResourceParameters parameters);
+        PagedList<Band> GetBands(BandsResourceParameters parameters);
         Band GetBand(Guid bandId);
         IEnumerable<Band> GetBands(IEnumerable<Guid> bandIds);
         void AddBand(Band band);
