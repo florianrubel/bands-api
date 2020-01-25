@@ -57,6 +57,7 @@ namespace BandsApi
             services.AddScoped<IBandAlbumRepository, BandAlbumRepository>();
 
             services.AddScoped<IPropertyMappingService, PropertyMappingService>();
+            services.AddScoped<IPropertyValidationService, PropertyValidationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
