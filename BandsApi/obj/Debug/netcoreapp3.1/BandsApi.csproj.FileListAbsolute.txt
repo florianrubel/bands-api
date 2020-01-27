@@ -280,4 +280,12 @@ C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.R
 C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.csproj.CopyComplete
 C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.csprojAssemblyReference.cache
 C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\System.Linq.Dynamic.Core.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Debug.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\flori\source\repos\BandsApi\BandsApi\bin\Debug\netcoreapp3.1\BandsApi.xml
+C:\Users\flori\source\repos\BandsApi\BandsApi\obj\Debug\netcoreapp3.1\BandsApi.xml
